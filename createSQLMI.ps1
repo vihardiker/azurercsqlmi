@@ -15,8 +15,6 @@ $NAMESPACE = $Env:NAMESPACE
 $SQLMITIER = $Env:SQLMITIER
 
 
-
-
 ########################################################################
 # Login to Azure using Service Principal credentials from Github Secrets
 ########################################################################
@@ -38,6 +36,7 @@ Write-Output "Done Setting Azure Subscription"
 Write-Output "Create SQL MI"
 az config set extension.use_dynamic_install=yes_without_prompt
 # Is this a dev instance of SQL MI
+az config set extension.use_dynamic_install=yes_without_prompt 
 if ($ISTHISADEVINSTANCE -eq 'true') {
     az sql mi-arc create --name $SQLMINAME --ad-connector-name $ADCONNECTORNAME --ad-account-name $SQLACCOUNTNAME --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --dev #--primary-dns-name $PRIMARYDNSNAME
 }
@@ -50,6 +49,7 @@ Write-Output "Done Creating SQL MI"
 # Update SQL Managed Instance(MI) Agent
 #######################################
 Write-Output "Update SQL MI Agent"
+az config set extension.use_dynamic_install=yes_without_prompt 
 az sql mi-arc update -n $SQLMINAME --k8s-namespace $NAMESPACE --use-k8s --agent-enabled true
 Write-Output "Done Updating SQL MI Agent"
 
@@ -57,6 +57,7 @@ Write-Output "Done Updating SQL MI Agent"
 # Get details of the created SQL MI
 ###################################
 Write-Output "Details of the newly created SQL MI"
+az config set extension.use_dynamic_install=yes_without_prompt 
 az sql mi show --name $SQLMINAME --resource-group $RESOURCEGROUPNAME
 Write-Output "Done displaying the details of the newly created SQL MI"
 
