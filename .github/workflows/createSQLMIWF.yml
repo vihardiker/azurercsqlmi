@@ -1,0 +1,72 @@
+name: Azure Arc Workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request: null
+permissions:
+  contents: read
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+jobs:
+  
+  ProvidersAndExtensions:
+    runs-on: windows-latest
+    
+
+    steps:
+      
+    # Checkout code from repo
+    - name: checkout repo
+      uses: actions/checkout@v1
+
+    
+    # Read the parameters file
+    - name: newSetVarFromJsonFileValue
+      id: step_one
+      run: |
+        $myjsonfile = Import-PowerShellDataFile -Path .\dev-parameters.json
+        echo $myjsonfile
+        echo $myjsonfile.PortNumber   
+        echo "::set-env name=RESOURCEGROUPNAME::$($myjsonfile.RESOURCEGROUPNAME)"
+        echo "::set-env name=SQLMINAME::$($myjsonfile.SQLMINAME)"
+        echo "::set-env name=SQLACCOUNTNAME::$($myjsonfile.SQLACCOUNTNAME)"
+        echo "::set-env name=PRIMARYDNSNAME::$($myjsonfile.PRIMARYDNSNAME)"
+        echo "::set-env name=ADCONNECTORNAME::$($myjsonfile.ADCONNECTORNAME)"
+        echo "::set-env name=PORTNUMBER::$($myjsonfile.PORTNUMBER)"      
+        echo "::set-env name=ISTHISADEVINSTANCE::$($myjsonfile.ISTHISADEVINSTANCE)"
+        echo "::set-env name=CLNAME::$($myjsonfile.CLNAME)"
+        echo "::set-env name=NAMESPACE::$($myjsonfile.NAMESPACE)"
+        echo "::set-env name=SQLMITIER::$($myjsonfile.SQLMITIER)"        
+      shell: pwsh
+      
+
+    # Read the parameters file
+    - name: setVarFromJsonFileValue
+      id: step_two
+      run: |
+       echo "##vso[task.setvariable variable=resourceGroupName;]$(jq .resourceGroupName globalparameters.json)" 
+       echo "my resourceGroupName: "
+       echo ${{env.RESOURCEGROUPNAME}}       
+       echo ${{env.SQLMINAME}}
+       echo ${{env.SQLACCOUNTNAME}}
+       echo ${{env.PRIMARYDNSNAME}}
+       echo ${{env.ADCONNECTORNAME}}
+       echo ${{env.PORTNUMBER}}
+       echo ${{env.ISTHISADEVINSTANCE}}
+       echo ${{env.CLNAME}}
+       echo ${{env.NAMESPACE}}
+       echo ${{env.SQLMITIER}}
+      shell: pwsh
+
+    - name: RunScriptFromRepo
+      env: #Set secrets as environment variables
+        ARC_SP_CLIENT_ID: ${{ secrets.ARC_SP_CLIENT_ID }}
+        ARC_SP_CLIENT_SECRET: ${{ secrets.ARC_SP_CLIENT_SECRET }}
+        ARC_SP_TENANT_ID: ${{ secrets.ARC_SP_TENANT_ID }}
+        ARC_AZURE_SUBSCRIPTION_ID: ${{ secrets.ARC_AZURE_SUBSCRIPTION_ID }}
+        AZDATA_USERNAME: ${{ secrets.AZDATA_USERNAME }}
+        AZDATA_PASSWORD: ${{ secrets.AZDATA_PASSWORD }}
+      run: .\test.ps1
+      shell: pwsh

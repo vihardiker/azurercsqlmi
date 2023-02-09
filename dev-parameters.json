@@ -1,0 +1,12 @@
+$params - @{
+RESOURCEGROUPNAME = "rg-vh-akslab2"
+SQLMINAME = "myvhsqlmi"
+SQLACCOUNTNAME = "mysqladmin"
+PRIMARYDNSNAME = "myvhsqlmi.jdnet.deere.com"
+ADCONNECTORNAME ="myvhadconnectorname"
+PORTNUMBER = "1433"
+ISTHISADEVINSTANCE = "true"
+CLNAME = "labcusloc"
+NAMESPACE = "myarcns"
+SQLMITIER = "gp"
+}
