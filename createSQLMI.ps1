@@ -38,10 +38,10 @@ az config set extension.use_dynamic_install=yes_without_prompt
 # Is this a dev instance of SQL MI
 az config set extension.use_dynamic_install=yes_without_prompt 
 if ($ISTHISADEVINSTANCE -eq 'true') {
-    az sql mi-arc create --name $SQLMINAME --ad-connector-name $ADCONNECTORNAME --ad-account-name $SQLACCOUNTNAME --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --dev #--primary-dns-name $PRIMARYDNSNAME
+    az sql mi-arc create --name $SQLMINAME  --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --dev #--primary-dns-name $PRIMARYDNSNAME --ad-connector-name $ADCONNECTORNAME --ad-account-name $SQLACCOUNTNAME
 }
 else {
-    az sql mi-arc create --name $SQLMINAME --ad-connector-name $ADCONNECTORNAME --ad-account-name $SQLACCOUNTNAME --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --tier $SQLMITIER #--primary-dns-name $PRIMARYDNSNAME
+    az sql mi-arc create --name $SQLMINAME  --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --tier $SQLMITIER #--primary-dns-name $PRIMARYDNSNAME --ad-connector-name $ADCONNECTORNAME --ad-connector-name $ADCONNECTORNAME
 }
 Write-Output "Done Creating SQL MI"
 
