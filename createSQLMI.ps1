@@ -38,10 +38,10 @@ az config set extension.use_dynamic_install=yes_without_prompt
 # Is this a dev instance of SQL MI
 az config set extension.use_dynamic_install=yes_without_prompt 
 if ($ISTHISADEVINSTANCE -eq 'true') {
-    az sql mi-arc create --name $SQLMINAME  --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --dev #--primary-dns-name $PRIMARYDNSNAME --ad-connector-name $ADCONNECTORNAME --ad-account-name $SQLACCOUNTNAME
+    az sql mi-arc create --name $SQLMINAME --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --dev #--primary-dns-name $PRIMARYDNSNAME --ad-connector-name $ADCONNECTORNAME --ad-account-name $SQLACCOUNTNAME
 }
 else {
-    az sql mi-arc create --name $SQLMINAME  --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --tier $SQLMITIER #--primary-dns-name $PRIMARYDNSNAME --ad-connector-name $ADCONNECTORNAME --ad-connector-name $ADCONNECTORNAME
+    az sql mi-arc create --name $SQLMINAME --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --tier $SQLMITIER #--primary-dns-name $PRIMARYDNSNAME --ad-connector-name $ADCONNECTORNAME --ad-connector-name $ADCONNECTORNAME
 }
 Write-Output "Done Creating SQL MI"
 
@@ -50,14 +50,5 @@ Write-Output "Done Creating SQL MI"
 #######################################
 Write-Output "Update SQL MI Agent"
 az config set extension.use_dynamic_install=yes_without_prompt 
-az sql mi-arc update -n $SQLMINAME --k8s-namespace $NAMESPACE --use-k8s --agent-enabled true
+az sql mi-arc update -n $SQLMINAME --k8s-namespace $NAMESPACE --use-k8s --agent-enabled true --debug
 Write-Output "Done Updating SQL MI Agent"
-
-###################################
-# Get details of the created SQL MI
-###################################
-Write-Output "Details of the newly created SQL MI"
-az config set extension.use_dynamic_install=yes_without_prompt 
-az sql mi show --name $SQLMINAME --resource-group $RESOURCEGROUPNAME
-Write-Output "Done displaying the details of the newly created SQL MI"
-
