@@ -9,4 +9,5 @@ ISTHISADEVINSTANCE = "true"
 CLNAME = "labcusloc"
 NAMESPACE = "myarcns"
 SQLMITIER = "gp"
+AZURE_SUBSCRIPTION_ID = "xxxxxxxxxxx"
 }

@@ -15,7 +15,7 @@ jobs:
     if: ${{ !contains(github.event.head_commit.message, 'vivek') }}
     runs-on: windows-latest
     
-    
+
 
     steps:
       
@@ -40,7 +40,8 @@ jobs:
         echo "::set-env name=ISTHISADEVINSTANCE::$($myjsonfile.ISTHISADEVINSTANCE)"
         echo "::set-env name=CLNAME::$($myjsonfile.CLNAME)"
         echo "::set-env name=NAMESPACE::$($myjsonfile.NAMESPACE)"
-        echo "::set-env name=SQLMITIER::$($myjsonfile.SQLMITIER)"        
+        echo "::set-env name=SQLMITIER::$($myjsonfile.SQLMITIER)"     
+        echo "::set-env name=AZURE_SUBSCRIPTION_ID::$($myjsonfile.AZURE_SUBSCRIPTION_ID)"   
       shell: pwsh
       
 
@@ -59,6 +60,7 @@ jobs:
        echo ${{env.CLNAME}}
        echo ${{env.NAMESPACE}}
        echo ${{env.SQLMITIER}}
+       echo ${{env.AZURE_SUBSCRIPTION_ID}}
       shell: pwsh
 
     - name: RunScriptFromRepo
@@ -66,7 +68,6 @@ jobs:
         ARC_SP_CLIENT_ID: ${{ secrets.ARC_SP_CLIENT_ID }}
         ARC_SP_CLIENT_SECRET: ${{ secrets.ARC_SP_CLIENT_SECRET }}
         ARC_SP_TENANT_ID: ${{ secrets.ARC_SP_TENANT_ID }}
-        ARC_AZURE_SUBSCRIPTION_ID: ${{ secrets.ARC_AZURE_SUBSCRIPTION_ID }}
         AZDATA_USERNAME: ${{ secrets.AZDATA_USERNAME }}
         AZDATA_PASSWORD: ${{ secrets.AZDATA_PASSWORD }}
       run: .\createSQLMI.ps1

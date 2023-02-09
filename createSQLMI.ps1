@@ -13,6 +13,7 @@ $ISTHISADEVINSTANCE = $Env:ISTHISADEVINSTANCE                #true or false, tru
 $CLNAME = $Env:CLNAME
 $NAMESPACE = $Env:NAMESPACE
 $SQLMITIER = $Env:SQLMITIER
+$AZURE_SUBSCRIPTION_ID = $Env:AZURE_SUBSCRIPTION_ID
 
 
 ########################################################################
@@ -26,7 +27,7 @@ Write-Output "Done logging into Azure"
 # Select Azure subscription
 ###########################
 Write-Output "Setting Azure Subscription"
-az account set --subscription $Env:ARC_AZURE_SUBSCRIPTION_ID
+az account set --subscription $AZURE_SUBSCRIPTION_ID #$Env:ARC_AZURE_SUBSCRIPTION_ID
 Write-Output "Done Setting Azure Subscription"
 
 
