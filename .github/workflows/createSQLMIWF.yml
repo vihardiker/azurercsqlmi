@@ -11,7 +11,7 @@ env:
 
 jobs:
   
-  ProvidersAndExtensions:
+  AzureSQLMI:
     runs-on: windows-latest
     
 
@@ -46,7 +46,6 @@ jobs:
     - name: setVarFromJsonFileValue
       id: step_two
       run: |
-       echo "##vso[task.setvariable variable=resourceGroupName;]$(jq .resourceGroupName dev-parameters.json)" 
        echo "my resourceGroupName: "
        echo ${{env.RESOURCEGROUPNAME}}       
        echo ${{env.SQLMINAME}}
