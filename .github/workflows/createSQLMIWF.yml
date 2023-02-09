@@ -1,4 +1,4 @@
-name: Azure Arc Workflow
+name: Azure Arc SQL MI Workflow
 on:
   push:
     branches:
@@ -46,7 +46,7 @@ jobs:
     - name: setVarFromJsonFileValue
       id: step_two
       run: |
-       echo "##vso[task.setvariable variable=resourceGroupName;]$(jq .resourceGroupName globalparameters.json)" 
+       echo "##vso[task.setvariable variable=resourceGroupName;]$(jq .resourceGroupName dev-parameters.json)" 
        echo "my resourceGroupName: "
        echo ${{env.RESOURCEGROUPNAME}}       
        echo ${{env.SQLMINAME}}
