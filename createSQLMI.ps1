@@ -44,11 +44,3 @@ else {
     az sql mi-arc create --name $SQLMINAME --primary-port-number $PORTNUMBER --custom-location $CLNAME --resource-group $RESOURCEGROUPNAME --tier $SQLMITIER #--primary-dns-name $PRIMARYDNSNAME --ad-connector-name $ADCONNECTORNAME --ad-connector-name $ADCONNECTORNAME
 }
 Write-Output "Done Creating SQL MI"
-
-#######################################
-# Update SQL Managed Instance(MI) Agent
-#######################################
-Write-Output "Update SQL MI Agent"
-az config set extension.use_dynamic_install=yes_without_prompt 
-az sql mi-arc update -n $SQLMINAME --k8s-namespace $NAMESPACE --use-k8s --agent-enabled true --debug
-Write-Output "Done Updating SQL MI Agent"
