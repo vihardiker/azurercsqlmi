@@ -19,8 +19,25 @@
 |`NAMESPACE`|`Specify the namespace to install the extension release`|`myarcns, or other possible values`|
 |`SQLMITIER`|`The pricing tier for the SQL MI instance`|`BusinessCritical (bc for short) or GeneralPurpose (gp for short). Default is GeneralPurpose`|
 
+## <u>Secrets</u>
 
-## <u>Important Note</u>
+Github allows to use secrets in a pipeline workflow. The secrets are username, password, service principal etc. Here are the details of the secrets used in the pipeline workflow:
+
+## <span style="color:red"><u>Important Note</u></span>
+
+Keep a note of the secrets, once they are saved in github, you can only update it, however, cannot retrieve the value.
+
+|Secret Name|Description|Typical Values|
+|:--|:--|:--|
+|`ARC_SP_CLIENT_ID`|`Client ID of the Service Principal`|`This is an auto generated value`|
+|`ARC_SP_CLIENT_SECRET`|`Client Secret of the Service Principal`|`This is an auto generated value`|
+|`ARC_SP_TENANT_ID`|`Tenant ID`|`This is an auto generated value`|
+|`AZDATA_USERNAME`|`Username to log into SQL MI`|`sqlmiadmin, or other possible value`|
+|`AZDATA_PASSWORD`|`Password to log into SQL MI`|`@@Password123@, or other possible value that satisfy the SQL MI password restrictions`|
+
+
+
+## <span style="color:red"><u>Important Note</u></span>
 
 In the current codebase, the parameters related to primary-dns-name, ad-connector-name, and ad-account-name are commented out. Please uncomment these in the commands before you run the pipeline.
 
@@ -28,3 +45,4 @@ In the current codebase, the parameters related to primary-dns-name, ad-connecto
 ## <u>Additional resources</u>
 
 - [az sql mi-arc](https://learn.microsoft.com/en-us/cli/azure/sql/mi-arc?view=azure-cli-latest#az-sql-mi-arc-create)
+- [Github Action Secrets](https://docs.github.com/en/rest/actions/secrets?apiVersion=2022-11-28#get-an-organization-secret)
